@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Update timetable</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+
+</head>
+<body>
+ 	<div class="container mt-5">
+	  <div class="row">
+	  
+	    <div class="col-sm-4">
+	    	<div class="footer">
+				<p><a href="/university">Back to Homepage</a></p>
+			</div>	    	
+	    </div>
+	    
+	    <div class="col-sm-4">
+ 			<div class="container mt-3">
+ 				<h3>Update of the  timetable</h3>
+ 					<form th:method="PUT" th:action="@{/timetable/{id}(id=${timetable.getTimetableId})}" 
+ 													th:object="${timetable}">
+				        <div class="mb-3">
+						    <label class="control-label" for="date">Date</label>
+						    <input class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" type="text"
+						        th:field="*{date}"/>
+						    </div>		    		    
+					    
+				        <div class="mb-3">
+					        <label for="startLecture" class="form-label">Enter start of lecture: </label>
+						    <input type="time" class="form-control" th:field="*{startLecture}" id="startLecture"
+						    placeholder="hh:mm:ss" min="09:00:00" max="18:00:00"/>
+					    </div>		    
+				        <div class="mb-3">
+					        <label for="endLecture" class="form-label">Enter end of lecture: </label>
+						    <input type="time" class="form-control" th:field="*{endLecture}" id="endLecture"
+						    placeholder="hh:mm:ss" min="09:00:00" max="18:00:00"/>
+					    </div>
+					    
+				        <div class="mb-3">
+					        <label for="location" class="form-label">Enter location: </label> 			    
+			  			    <select class="form-control" id="listOfLocation" th:field="*{location}">
+							    <option th:each="location : ${T(ua.foxminded.university.domain.timetable.Location).values()}" 
+							    th:value="${location.displayValue}" th:text="${location.displayValue}" 
+							    th:field="*{location}"></option>
+							</select>			     
+					    </div>
+						    
+				        <div class="mb-3">
+					        <label for="listOfGroupId" class="form-label">Enter group ID: </label> 			    
+			 			    <select class="form-control" id="listOfGroupId" name="groupId">
+							    <option th:each="group : ${groups}" th:value="${group.groupId}" 
+							    th:text="${group.groupId}" th:name="groupId"></option>
+							</select>			     
+					    </div>					    
+					    
+				        <div class="mb-3">
+					        <label for="subject" class="form-label">Enter subject: </label>	    
+							<select class="form-control" id="listOfLocation" th:field="*{subject}">
+							    <option th:each="subject : ${T(ua.foxminded.university.domain.timetable.Subject).values()}" 
+							    th:value="${subject.displayValue}" th:text="${subject.displayValue}" 
+							    th:field="*{subject}"></option>
+							</select>															     
+					    </div>
+
+				        <div class="mb-3">
+					        <label for="listOfTeacherId" class="form-label">Enter teacher ID: </label>
+							 <select class="form-control" id="listOfTeacherId" name="teacherId">
+							    <option th:each="teacher : ${teachers}" th:value="${teacher.teacherId}" 
+							    th:text="${teacher.teacherId}" th:name="teacherId"></option>
+							</select>									    			      
+					    </div>	
+					    <!-- 					    
+				        <div class="mb-3">
+					        <label for="teacherId" class="form-label">Enter teacher ID: </label>
+							 <select class="form-control" id="listOfTeacherId" th:field="*{teacherId}">
+							    <option th:each="teacher : ${teacherIds}" th:value="${teacher}" 
+							    th:text="${teacher}" th:field="*{teacherId}"></option>
+							</select>									    			      
+					    </div> -->
+						    
+						<br/>
+						<input type="submit" class="btn btn-primary" value="Update!"/>
+						<input type="reset" class="btn btn-primary" value="Reset" />
+ 				</form>	
+ 			</div> 			
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
